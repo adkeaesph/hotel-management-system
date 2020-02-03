@@ -24,7 +24,9 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 	@Override
 	public boolean createHotel(Hotel hotel) throws HotelCreationException{
 		HotelPic[] pics=hotel.getPics();
+		List<PicEntity> picEntities;
 		PicEntity picEntity;
+		
 		for(HotelPic pic:pics) {
 			picEntity=new PicEntity();
 			picEntity.setHotelName(hotel.getHotelName());
@@ -32,6 +34,11 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 			try {
 				picDAO.save(picEntity);
 			}catch(Exception exception) {
+				picEntities=picDAO.deleteByHotelName(hotel.getHotelName());
+				System.out.println("Pics deleted from database - ");
+				for(PicEntity entity:picEntities) {
+					System.out.println(entity);
+				}
 				throw new HotelCreationException("Hotel could not be created!!!");
 			}
 		}
@@ -48,7 +55,6 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 		hotelEntity.setPricePerRoom(hotel.getNoOfRooms());
 		hotelEntity.setActiveStatus(true);
 		
-		List<PicEntity> picEntities;
 		try {
 			hotelDAO.save(hotelEntity);
 		}catch(Exception exception) {
@@ -64,14 +70,24 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 
 	@Override
 	public boolean updateHotel(Hotel hotel) throws HotelUpdationException {
-		// TODO Auto-generated method stub
-		return false;
+		HotelEntity hotelEntity=new HotelEntity();
+		hotelEntity.setHotelName(hotel.getHotelName());
+		hotelEntity.setLocation(hotel.getLocation());
+		String[] amenities=hotel.getAmenities();
+		String amenityString="";
+		for(int i=0;i<amenities.length;i++)
+			amenityString+=amenities[i]+" ";
+		hotelEntity.setAmenities(amenityString);
+		hotelEntity.setNoOfRooms(hotel.getNoOfRooms());
+		hotelEntity.setPricePerRoom(hotel.getNoOfRooms());
+		
+		return true;
 	}
 
 	@Override
 	public boolean deleteHotel(Hotel hotel) throws HotelDeletionException{
-		// TODO Auto-generated method stub
-		return false;
+		
+		return true;
 	}
 
 }
