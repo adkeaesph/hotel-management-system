@@ -3,6 +3,7 @@ package com.capgemini.hotelcataloguemgmtservice.dto;
 import com.capgemini.hotelcataloguemgmtservice.util.HotelPic;
 
 public class Hotel {
+	private int hotelID;
 	private String hotelName;
 	private String location; // later to be made as a separate class, for now it is a city
 	private double pricePerRoom; // No room differentiation, only one type of room
@@ -24,8 +25,26 @@ public class Hotel {
 		this.amenities = amenities;
 		this.pics = pics;
 	}
+	
+	public Hotel(int hotelID, String hotelName, String location, double pricePerRoom, int noOfRooms, String[] amenities,
+			HotelPic[] pics) {
+		super();
+		this.hotelID=hotelID;
+		this.hotelName = hotelName;
+		this.location = location;
+		this.pricePerRoom = pricePerRoom;
+		this.noOfRooms = noOfRooms;
+		this.amenities = amenities;
+		this.pics = pics;
+	}
 
+	public int getHotelID() {
+		return hotelID;
+	}
 
+	public void setHotelID(int hotelID) {
+		this.hotelID = hotelID;
+	}
 
 	public String getHotelName() {
 		return hotelName;

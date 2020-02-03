@@ -7,5 +7,5 @@ import com.capgemini.hotelcataloguemgmtservice.entities.HotelEntity;
 
 @Repository
 public interface HotelDAO extends JpaRepository<HotelEntity, Integer> {
-	
+	HotelEntity findByHotelID(int hotelID);
 }
