@@ -39,7 +39,7 @@ public class HotelCatalogueController {
 		return "Hotel updated successfully.";
 	}
 	
-	@PostMapping(path = "/delete-hotel")
+	@PostMapping(path = "/remove-hotel")
 	public String removeHotel(@RequestBody Hotel hotel) {
 		try {
 			hotelCatalogueService.deleteHotel(hotel);
@@ -48,4 +48,5 @@ public class HotelCatalogueController {
 		}
 		return "Hotel removed successfully.";
 	}
+	
 }

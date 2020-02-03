@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelCreationException;
 import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelDeletionException;
 import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelUpdationException;
-import com.capgemini.hotelcataloguemgmtservice.dao.HotelDAO;
+import com.capgemini.hotelcataloguemgmtservice.dao.WriteHotelDAO;
 import com.capgemini.hotelcataloguemgmtservice.dao.PicDAO;
 import com.capgemini.hotelcataloguemgmtservice.dto.Hotel;
 import com.capgemini.hotelcataloguemgmtservice.entities.HotelEntity;
@@ -14,7 +14,7 @@ import com.capgemini.hotelcataloguemgmtservice.util.HotelPic;
 
 public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 	@Autowired
-	HotelDAO hotelDAO;
+	WriteHotelDAO hotelDAO;
 
 	@Autowired
 	PicDAO picDAO;
