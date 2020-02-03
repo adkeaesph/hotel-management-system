@@ -1,4 +1,4 @@
-package com.capgemini.userprofilemgmtmicroservice;
+package com.capgemini.userprofilemgmtservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
