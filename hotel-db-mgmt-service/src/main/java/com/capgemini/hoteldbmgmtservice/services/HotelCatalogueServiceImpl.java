@@ -1,6 +1,7 @@
 package com.capgemini.hoteldbmgmtservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capgemini.hoteldbmgmtservice.customexceptions.HotelCreationException;
 import com.capgemini.hoteldbmgmtservice.customexceptions.HotelDeletionException;
@@ -14,7 +15,7 @@ import com.capgemini.hoteldbmgmtservice.util.HotelPic;
 
 public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 	@Autowired
-	WriteHotelDAO hotelDAO;
+	WriteHotelDAO writeHotelDAO;
 
 	@Autowired
 	PicDAO picDAO;
@@ -54,7 +55,7 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 		hotelEntity.setActiveStatus(true);
 
 		try {
-			hotelDAO.save(hotelEntity);
+			writeHotelDAO.save(hotelEntity);
 		} catch (Exception exception) {
 			picEntities = picDAO.deleteByHotelName(hotel.getHotelName());
 			System.out.println("Pics deleted from database - ");
@@ -68,7 +69,7 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 
 	@Override
 	public boolean updateHotel(Hotel hotel) throws HotelUpdationException {
-		HotelEntity hotelEntity = hotelDAO.findByHotelID(hotel.getHotelID());
+		HotelEntity hotelEntity = writeHotelDAO.findByHotelID(hotel.getHotelID());
 
 		if (hotel.getHotelName() != null) {
 			String hotelName=hotel.getHotelName();
@@ -108,7 +109,7 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 			hotelEntity.setPricePerRoom(hotel.getPricePerRoom());
 
 		try {
-			hotelDAO.save(hotelEntity);
+			writeHotelDAO.save(hotelEntity);
 		} catch (Exception exception) {
 			throw new HotelUpdationException("Hotel could not be updated!!!");
 		}
@@ -118,10 +119,10 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 
 	@Override
 	public boolean deleteHotel(Hotel hotel) throws HotelDeletionException {
-		HotelEntity hotelEntity = hotelDAO.findByHotelID(hotel.getHotelID());
+		HotelEntity hotelEntity = writeHotelDAO.findByHotelID(hotel.getHotelID());
 		hotelEntity.setActiveStatus(false);
 		try {
-			hotelDAO.save(hotelEntity);
+			writeHotelDAO.save(hotelEntity);
 		}catch(Exception exception) {
 			throw new HotelDeletionException("Hotel could not be deleted!!!");
 		}
