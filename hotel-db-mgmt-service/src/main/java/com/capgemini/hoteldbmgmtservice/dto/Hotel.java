@@ -1,6 +1,6 @@
-package com.capgemini.hotelcataloguemgmtservice.dto;
+package com.capgemini.hoteldbmgmtservice.dto;
 
-import com.capgemini.hotelcataloguemgmtservice.util.HotelPic;
+import com.capgemini.hoteldbmgmtservice.util.HotelPic;
 
 public class Hotel {
 	private int hotelID;

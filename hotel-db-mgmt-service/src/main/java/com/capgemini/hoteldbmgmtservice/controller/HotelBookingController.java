@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice.controller;
+package com.capgemini.hoteldbmgmtservice.controller;
 
 public class HotelBookingController {
 

@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice.entities;
+package com.capgemini.hoteldbmgmtservice.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

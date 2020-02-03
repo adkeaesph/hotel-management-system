@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice.controller;
+package com.capgemini.hoteldbmgmtservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelCreationException;
-import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelDeletionException;
-import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelUpdationException;
-import com.capgemini.hotelcataloguemgmtservice.dto.Hotel;
-import com.capgemini.hotelcataloguemgmtservice.services.HotelCatalogueService;
+import com.capgemini.hoteldbmgmtservice.customexceptions.HotelCreationException;
+import com.capgemini.hoteldbmgmtservice.customexceptions.HotelDeletionException;
+import com.capgemini.hoteldbmgmtservice.customexceptions.HotelUpdationException;
+import com.capgemini.hoteldbmgmtservice.dto.Hotel;
+import com.capgemini.hoteldbmgmtservice.services.HotelCatalogueService;
 
 @RestController
 @RequestMapping(path = "/catalogue")

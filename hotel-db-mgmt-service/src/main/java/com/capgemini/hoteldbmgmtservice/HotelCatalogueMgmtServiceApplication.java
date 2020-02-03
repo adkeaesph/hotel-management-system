@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice;
+package com.capgemini.hoteldbmgmtservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

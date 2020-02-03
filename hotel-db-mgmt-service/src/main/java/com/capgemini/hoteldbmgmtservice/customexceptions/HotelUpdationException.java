@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice.customexceptions;
+package com.capgemini.hoteldbmgmtservice.customexceptions;
 
 public class HotelUpdationException extends Exception {
 

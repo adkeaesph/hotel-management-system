@@ -1,16 +1,16 @@
-package com.capgemini.hotelcataloguemgmtservice.services;
+package com.capgemini.hoteldbmgmtservice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelCreationException;
-import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelDeletionException;
-import com.capgemini.hotelcataloguemgmtservice.customexceptions.HotelUpdationException;
-import com.capgemini.hotelcataloguemgmtservice.dao.WriteHotelDAO;
-import com.capgemini.hotelcataloguemgmtservice.dao.PicDAO;
-import com.capgemini.hotelcataloguemgmtservice.dto.Hotel;
-import com.capgemini.hotelcataloguemgmtservice.entities.HotelEntity;
-import com.capgemini.hotelcataloguemgmtservice.entities.PicEntity;
-import com.capgemini.hotelcataloguemgmtservice.util.HotelPic;
+import com.capgemini.hoteldbmgmtservice.customexceptions.HotelCreationException;
+import com.capgemini.hoteldbmgmtservice.customexceptions.HotelDeletionException;
+import com.capgemini.hoteldbmgmtservice.customexceptions.HotelUpdationException;
+import com.capgemini.hoteldbmgmtservice.dao.PicDAO;
+import com.capgemini.hoteldbmgmtservice.dao.WriteHotelDAO;
+import com.capgemini.hoteldbmgmtservice.dto.Hotel;
+import com.capgemini.hoteldbmgmtservice.entities.HotelEntity;
+import com.capgemini.hoteldbmgmtservice.entities.PicEntity;
+import com.capgemini.hoteldbmgmtservice.util.HotelPic;
 
 public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 	@Autowired

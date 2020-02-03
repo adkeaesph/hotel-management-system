@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice.util;
+package com.capgemini.hoteldbmgmtservice.util;
 
 public class HotelPic {
 	private String imageUrl;
