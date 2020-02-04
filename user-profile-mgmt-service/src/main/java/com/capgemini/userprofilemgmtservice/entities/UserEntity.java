@@ -2,24 +2,39 @@ package com.capgemini.userprofilemgmtservice.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
 public class UserEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	
+	
 	@Column(name = "USER_NAME")
 	private String name;
+	@Id
 	@Column(name = "USER_EMAIL")
 	private String mail;
 	@Column(name = "USER_CONTACT")
-	private int phone; 
+	private String phone; 
 	@Column(name = "USER_CATEGORY")
 	private boolean category;
+	@Column(name = "PASSWORD")
+	private String password; 
+	@Column(name = "USER_ACTIVE_STATUS")
+	private boolean status;
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public boolean isStatus() {
+		return status;
+	}
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 	public String getName() {
 		return name;
 	}
@@ -32,10 +47,10 @@ public class UserEntity {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public boolean isCategory() {

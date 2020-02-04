@@ -5,11 +5,11 @@ package com.capgemini.userprofilemgmtservice.dto;
 public class User {
 	private String name;
 	private String mail; 
-	private int phone; 
+	private String phone; 
 	private boolean category;
 	private String password;
 	private boolean status;
-	public User(String name, String mail, int phone, boolean category, String password, boolean status) {
+	public User(String name, String mail, String phone, boolean category, String password, boolean status) {
 		super();
 		this.name = name;
 		this.mail = mail;
@@ -34,10 +34,10 @@ public class User {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public boolean isCategory() {

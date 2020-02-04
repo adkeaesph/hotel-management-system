@@ -21,7 +21,7 @@ public class UserProfileController  {
 	UserService userService;
 	
 	@PostMapping(path = "/register")
-	public String register(@RequestBody User user) {
+	public String register(@RequestBody User user) throws Exception {
 		try {
 			userService.register(user);
 		}catch(UserRegisterException exception) {

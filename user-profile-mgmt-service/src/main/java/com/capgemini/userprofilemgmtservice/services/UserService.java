@@ -7,6 +7,6 @@ import com.capgemini.userprofilemgmtservice.dto.User;
 
 public interface UserService {
 	boolean login(User user) throws UserLoginException;
-	boolean register(User user) throws UserRegisterException;
+	boolean register(User user) throws Exception;
 	boolean logout(User user) throws UserLogoutException;
 }
