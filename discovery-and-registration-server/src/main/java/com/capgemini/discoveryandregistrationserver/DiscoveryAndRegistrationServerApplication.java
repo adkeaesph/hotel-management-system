@@ -1,14 +1,13 @@
-package com.capgemini.hotelsdbmgmtservice;
+package com.capgemini.discoveryandregistrationserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-
-public class HotelsDbMgmtServiceApplication {
+public class DiscoveryAndRegistrationServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HotelsDbMgmtServiceApplication.class, args);
+		SpringApplication.run(DiscoveryAndRegistrationServerApplication.class, args);
 	}
 
 }
