@@ -11,5 +11,4 @@ public interface HotelCatalogueService {
 	boolean updateHotel(Hotel hotel) throws HotelUpdationException;
 	boolean deleteHotel(Hotel hotel) throws HotelDeletionException;
 	boolean reAddHotel(Hotel hotel) throws HotelReAdditionException;
-
 }
