@@ -10,5 +10,7 @@ public class UserLogoutException extends Exception {
 	public UserLogoutException(String message) {
 		super(message);
 	}
+	public static final String USER_NOT_EXISTS = " User with the given user id doesn't exists";
+	public static final String USER_LOGOUT_ERROR = " User logged out succesfully";
 }
 
