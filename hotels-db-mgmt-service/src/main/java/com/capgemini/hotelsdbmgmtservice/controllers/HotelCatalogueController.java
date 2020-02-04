@@ -1,4 +1,4 @@
-package com.capgemini.hoteldbmgmtservice.controller;
+package com.capgemini.hotelsdbmgmtservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.hoteldbmgmtservice.customexceptions.HotelCreationException;
-import com.capgemini.hoteldbmgmtservice.customexceptions.HotelDeletionException;
-import com.capgemini.hoteldbmgmtservice.customexceptions.HotelUpdationException;
-import com.capgemini.hoteldbmgmtservice.dto.Hotel;
-import com.capgemini.hoteldbmgmtservice.services.HotelCatalogueService;
+//import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelDeletionException;
+import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelUpdationException;
+import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelCreationException;
+import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelDeletionException;
+import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelReAdditionException;
+import com.capgemini.hotelsdbmgmtservice.dto.Hotel;
+import com.capgemini.hotelsdbmgmtservice.services.HotelCatalogueService;
 
 
 @RequestMapping(path = "/catalogue")
@@ -25,7 +27,7 @@ public class HotelCatalogueController {
 		try {
 			hotelCatalogueService.createHotel(hotel);
 		}catch(HotelCreationException exception) {
-			return "Hotel could not be added!!!";
+			return "Hotel could not be added!!! ";
 		}
 		return "Hotel added successfully.";
 	}
@@ -48,6 +50,16 @@ public class HotelCatalogueController {
 			return "Hotel could not be removed!!!";
 		}
 		return "Hotel removed successfully.";
+	}
+	
+	@PostMapping(path = "/resurrect-hotel")
+	public String resurrectHotel(@RequestBody Hotel hotel) {
+		try {
+			hotelCatalogueService.reAddHotel(hotel);
+		}catch(HotelReAdditionException exception) {
+			return "Hotel could not be resurrected!!!";
+		}
+		return "Hotel resurrected successfully.";
 	}
 	
 }

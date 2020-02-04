@@ -13,6 +13,7 @@ import com.capgemini.hoteldbmgmtservice.entities.HotelEntity;
 import com.capgemini.hoteldbmgmtservice.entities.PicEntity;
 import com.capgemini.hoteldbmgmtservice.util.HotelPic;
 
+@Service
 public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 	@Autowired
 	WriteHotelDAO writeHotelDAO;
