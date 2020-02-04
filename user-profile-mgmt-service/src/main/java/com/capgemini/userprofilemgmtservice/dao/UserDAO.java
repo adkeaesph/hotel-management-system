@@ -11,7 +11,7 @@ import com.capgemini.userprofilemgmtservice.entities.UserEntity;
 
 
 @Repository
-public interface UserDAO extends JpaRepository<UserEntity, Integer> {
+public interface UserDAO extends JpaRepository<UserEntity, String> {
 //	List<User> findByUsers(String emailAddress);
 	
 }
