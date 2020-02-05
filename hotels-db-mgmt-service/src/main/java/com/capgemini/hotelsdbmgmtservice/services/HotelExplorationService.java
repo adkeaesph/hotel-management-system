@@ -7,5 +7,6 @@ import com.capgemini.hotelsdbmgmtservice.dto.SearchInputs;
 
 public interface HotelExplorationService {
 	List<Hotel> searchSimple(SearchInputs inputs);
+	List<Hotel> searchFilter(SearchInputs inputs);
 	
 }

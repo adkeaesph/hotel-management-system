@@ -7,11 +7,18 @@ public class SearchInputs {
 	private Date checkInDate;
 	private Date checkOutDate;
 	
-	public SearchInputs(String location, Date checkInDate, Date checkOutDate) {
+
+	private double minPrice;
+	private double maxPrice;
+	
+	public SearchInputs(String location, Date checkInDate, Date checkOutDate, double minPrice, double maxPrice) {
 		super();
 		this.location = location;
 		this.checkInDate = checkInDate;
 		this.checkOutDate = checkOutDate;
+		this.minPrice = minPrice;
+		this.maxPrice = maxPrice;
+		
 	}
 	
 	public String getLocation() {
@@ -32,6 +39,20 @@ public class SearchInputs {
 	public void setCheckOutDate(Date checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
-	
+	public double getMinPrice() {
+		return minPrice;
+	}
+
+	public void setMinPrice(double minPrice) {
+		this.minPrice = minPrice;
+	}
+
+	public double getMaxPrice() {
+		return maxPrice;
+	}
+
+	public void setMaxPrice(double maxPrice) {
+		this.maxPrice = maxPrice;
+	}
 
 }

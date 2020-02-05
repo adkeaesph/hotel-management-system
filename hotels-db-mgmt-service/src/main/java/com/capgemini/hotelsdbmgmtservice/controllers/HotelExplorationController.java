@@ -27,4 +27,17 @@ public class HotelExplorationController {
 
 		return hotels;
 	}
+	
+	
+	@GetMapping(path = "/filter-hotel")
+	public List<Hotel> searchByFilter(@RequestBody SearchInputs input) {
+		List<Hotel> hotelss = null;
+
+		hotelss = hotelExplorationService.searchFilter(input);
+
+		return hotelss;
+	}
+	
+	
+	
 }

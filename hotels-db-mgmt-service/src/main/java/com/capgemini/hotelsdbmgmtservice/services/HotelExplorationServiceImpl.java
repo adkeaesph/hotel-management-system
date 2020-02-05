@@ -25,6 +25,7 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 	public List<Hotel> searchSimple(SearchInputs inputs) {
 		// TODO Auto-generated method stub
 		String location = inputs.getLocation();
+		
 		List<HotelEntity> hotelEntities = readHotelDAO.findByLocation(location);
 		int hotelID;
 		Hotel hotel;
@@ -33,6 +34,7 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 		Date checkIn=inputs.getCheckInDate();
 		Date checkOut=inputs.getCheckOutDate();
 		List<Hotel> listToBeDisplayed=new ArrayList<>();
+		
 		for(HotelEntity hotelEntity:hotelEntities) {
 			hotelID=hotelEntity.getId();
 			noOfRooms=hotelEntity.getNoOfRooms();
@@ -50,6 +52,47 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 				listToBeDisplayed.add(hotel);
 			}
 		}
+		
+		return listToBeDisplayed;
+	}
+
+	@Override
+	public List<Hotel> searchFilter(SearchInputs inputs) {
+		// TODO Auto-generated method stub
+		String location = inputs.getLocation();
+		
+		double low=inputs.getMinPrice();
+		double high=inputs.getMaxPrice();
+		
+		List<HotelEntity> hotelEntities = readHotelDAO.findByLocation(location,low,high);
+		int hotelID;
+		Hotel hotel;
+		int noOfRooms;
+		int roomAvailable;
+		Date checkIn=inputs.getCheckInDate();
+		Date checkOut=inputs.getCheckOutDate();
+		List<Hotel> listToBeDisplayed=new ArrayList<>();
+		
+		for(HotelEntity hotelEntity:hotelEntities) {
+			hotelID=hotelEntity.getId();
+			noOfRooms=hotelEntity.getNoOfRooms();
+			int occupiedRooms= scheduleStayDAO.findOccupiedRooms(hotelID, checkIn, checkOut).size();
+			roomAvailable= noOfRooms-occupiedRooms;	
+			if(roomAvailable>0) {
+				hotel=new Hotel();
+				hotel.setHotelID(hotelEntity.getId());
+				hotel.setHotelName(hotelEntity.getHotelName());
+				hotel.setLocation(hotelEntity.getLocation());
+				hotel.setNoOfRooms(hotelEntity.getNoOfRooms());
+				hotel.setRoomsAvailable(roomAvailable);
+				hotel.setPricePerRoom(hotelEntity.getPricePerRoom());
+				hotel.setAmenities(hotelEntity.getAmenities());
+				listToBeDisplayed.add(hotel);
+			}
+		}
+		
+		
+		
 		
 		return listToBeDisplayed;
 	}
