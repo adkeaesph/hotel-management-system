@@ -1,6 +1,10 @@
 package com.capgemini.hotelsdbmgmtservice.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelCreationException;
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelDeletionException;
+import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelFetchingException;
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelReAdditionException;
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelUpdationException;
 import com.capgemini.hotelsdbmgmtservice.dto.Hotel;
@@ -58,6 +63,17 @@ public class HotelCatalogueController {
 			return "Hotel could not be resurrected!!!";
 		}
 		return "Hotel resurrected successfully.";
+	}
+	
+	@GetMapping(path = "/get-hotels/{location}")
+	public List<Hotel> getHotelsByLocation(@PathVariable("location") String location) {
+		List<Hotel> hotels=null;
+		try {
+			hotels=hotelCatalogueService.getHotelsByLocation(location);
+		} catch (HotelFetchingException exception) {
+			return hotels;
+		}
+		return hotels;
 	}
 
 }

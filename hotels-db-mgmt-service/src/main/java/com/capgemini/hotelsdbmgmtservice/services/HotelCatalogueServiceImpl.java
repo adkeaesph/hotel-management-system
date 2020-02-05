@@ -1,5 +1,7 @@
 package com.capgemini.hotelsdbmgmtservice.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelCreationException;
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelDeletionException;
+import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelFetchingException;
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelReAdditionException;
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelUpdationException;
 import com.capgemini.hotelsdbmgmtservice.dao.WriteHotelDAO;
@@ -101,6 +104,28 @@ public class HotelCatalogueServiceImpl implements HotelCatalogueService {
 			throw new HotelReAdditionException("Hotel with the given id does not exist!!!");
 		}
 		return true;
+	}
+
+	@Override
+	public List<Hotel> getHotelsByLocation(String location) throws HotelFetchingException {
+		List<HotelEntity> hotelEntities=writeHotelDAO.findByLocation(location);
+		List<Hotel> hotels=null;
+		Hotel currentHotel;
+		if(hotelEntities.size()!=0) {
+			hotels=new ArrayList<>();
+			for(HotelEntity hotelEntity:hotelEntities) {
+				currentHotel=new Hotel();
+				currentHotel.setAmenities(hotelEntity.getAmenities());
+				currentHotel.setHotelName(hotelEntity.getHotelName());
+				currentHotel.setHotelID(hotelEntity.getId());
+				currentHotel.setLocation(hotelEntity.getLocation());
+				currentHotel.setNoOfRooms(hotelEntity.getNoOfRooms());
+				currentHotel.setPricePerRoom(hotelEntity.getPricePerRoom());
+				hotels.add(currentHotel);
+			}
+		}else
+			throw new HotelFetchingException("No rows by the given location fetched!!!");
+		return hotels;
 	}
 	
 	

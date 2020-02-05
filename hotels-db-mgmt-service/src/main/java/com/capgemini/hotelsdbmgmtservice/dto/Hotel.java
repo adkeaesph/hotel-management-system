@@ -10,6 +10,7 @@ public class Hotel {
 	private String amenities;
 
 	public Hotel() {
+		
 	}
 
 	public int getHotelID() {
