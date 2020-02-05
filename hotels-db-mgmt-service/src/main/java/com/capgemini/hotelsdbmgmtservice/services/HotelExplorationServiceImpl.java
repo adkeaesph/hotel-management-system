@@ -26,7 +26,7 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 		// TODO Auto-generated method stub
 		String location = inputs.getLocation();
 		List<HotelEntity> hotelEntities = readHotelDAO.findByLocation(location);
-		String hotelName;
+		int hotelID;
 		Hotel hotel;
 		int noOfRooms;
 		int roomAvailable;
@@ -34,16 +34,17 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 		Date checkOut=inputs.getCheckOutDate();
 		List<Hotel> listToBeDisplayed=new ArrayList<>();
 		for(HotelEntity hotelEntity:hotelEntities) {
-			hotelName=hotelEntity.getHotelName();
+			hotelID=hotelEntity.getId();
 			noOfRooms=hotelEntity.getNoOfRooms();
-			int occupiedRooms= scheduleStayDAO.findOccupiedRooms(hotelName,checkIn, checkOut).size();
+			int occupiedRooms= scheduleStayDAO.findOccupiedRooms(hotelID, checkIn, checkOut).size();
 			roomAvailable= noOfRooms-occupiedRooms;	
 			if(roomAvailable>0) {
 				hotel=new Hotel();
 				hotel.setHotelID(hotelEntity.getId());
 				hotel.setHotelName(hotelEntity.getHotelName());
 				hotel.setLocation(hotelEntity.getLocation());
-				hotel.setNoOfRooms(roomAvailable);
+				hotel.setNoOfRooms(hotelEntity.getNoOfRooms());
+				hotel.setRoomsAvailable(roomAvailable);
 				hotel.setPricePerRoom(hotelEntity.getPricePerRoom());
 				hotel.setAmenities(hotelEntity.getAmenities());
 				listToBeDisplayed.add(hotel);
