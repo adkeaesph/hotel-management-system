@@ -20,32 +20,27 @@ public class HotelCatalogueSuperController {
 
 	@Autowired
 	RestTemplate restTemplate;
-	/*
+	
 	@PostMapping(path = "/add-hotel")
 	public String addHotel(@RequestBody Hotel hotel) {
-		
+		return restTemplate.postForObject("http://hotels-db-mgmt-service/catalogue/add-hotel", hotel, String.class);
 	}
-	*/
+	
 	@PostMapping(path = "/edit-hotel")
 	public String editHotel(@RequestBody Hotel hotel) {
-		System.out.println(hotel);
-		HttpEntity<Hotel> request = new HttpEntity<>(hotel);
-		Hotel hotel2=request.getBody();
-		System.out.println(hotel2);
-		return restTemplate.postForObject("http://hotels-db-mgmt-service/catalogue/edit-hotel", request, String.class);
+		return restTemplate.postForObject("http://hotels-db-mgmt-service/catalogue/edit-hotel", hotel, String.class);
 	}
-	/*
+	
 	@PostMapping(path = "/remove-hotel")
 	public String removeHotel(@RequestBody Hotel hotel) {
-		
+		return restTemplate.postForObject("http://hotels-db-mgmt-service/catalogue/remove-hotel", hotel, String.class);
 	}
-	*/
-	/*
+	
 	@PostMapping(path = "/resurrect-hotel")
 	public String resurrectHotel(@RequestBody Hotel hotel) {
-		
+		return restTemplate.postForObject("http://hotels-db-mgmt-service/catalogue/resurrect-hotel", hotel, String.class);
 	}
-	*/
+	
 	@GetMapping(path = "/get-hotels/{location}")
 	public HotelList getHotelsByLocation(@PathVariable("location") String location) {
 		HotelList hotelList = restTemplate.getForObject("http://hotels-db-mgmt-service/catalogue/get-hotels/" + location,HotelList.class);

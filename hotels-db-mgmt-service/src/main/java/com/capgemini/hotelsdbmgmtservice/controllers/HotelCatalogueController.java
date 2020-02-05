@@ -38,13 +38,9 @@ public class HotelCatalogueController {
 	}
 
 	@PostMapping(path = "/edit-hotel")
-	public String editHotel(@RequestBody HttpEntity<Hotel> request) {
-		System.out.println("asdsadsfsf");
+	public String editHotel(@RequestBody Hotel hotel) {
 		try {
-			Hotel hotel=request.getBody();
-			System.out.println(hotel);
-			hotelCatalogueService.updateHotel(request.getBody());
-			System.out.println("adks");
+			hotelCatalogueService.updateHotel(hotel);
 		} catch (HotelUpdationException exception) {
 			return "Hotel could not be updated!!!";
 		}
