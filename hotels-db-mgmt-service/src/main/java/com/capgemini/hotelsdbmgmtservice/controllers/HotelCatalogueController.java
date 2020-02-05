@@ -3,6 +3,7 @@ package com.capgemini.hotelsdbmgmtservice.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelFetchingException
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelReAdditionException;
 import com.capgemini.hotelsdbmgmtservice.customexceptions.HotelUpdationException;
 import com.capgemini.hotelsdbmgmtservice.dto.Hotel;
+import com.capgemini.hotelsdbmgmtservice.dto.HotelList;
 import com.capgemini.hotelsdbmgmtservice.services.HotelCatalogueService;
 
 @RequestMapping(path = "/catalogue")
@@ -36,9 +38,13 @@ public class HotelCatalogueController {
 	}
 
 	@PostMapping(path = "/edit-hotel")
-	public String editHotel(@RequestBody Hotel hotel) {
+	public String editHotel(@RequestBody HttpEntity<Hotel> request) {
+		System.out.println("asdsadsfsf");
 		try {
-			hotelCatalogueService.updateHotel(hotel);
+			Hotel hotel=request.getBody();
+			System.out.println(hotel);
+			hotelCatalogueService.updateHotel(request.getBody());
+			System.out.println("adks");
 		} catch (HotelUpdationException exception) {
 			return "Hotel could not be updated!!!";
 		}
@@ -64,16 +70,19 @@ public class HotelCatalogueController {
 		}
 		return "Hotel resurrected successfully.";
 	}
-	
+
 	@GetMapping(path = "/get-hotels/{location}")
-	public List<Hotel> getHotelsByLocation(@PathVariable("location") String location) {
-		List<Hotel> hotels=null;
+	public HotelList getHotelsByLocation(@PathVariable("location") String location) {
+		List<Hotel> hotels = null;
+		HotelList hotelList = null;
 		try {
-			hotels=hotelCatalogueService.getHotelsByLocation(location);
+			hotelList = new HotelList();
+			hotels = hotelCatalogueService.getHotelsByLocation(location);
+			hotelList.setHotels(hotels);
 		} catch (HotelFetchingException exception) {
-			return hotels;
+			return hotelList;
 		}
-		return hotels;
+		return hotelList;
 	}
 
 }

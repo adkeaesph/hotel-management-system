@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.capgemini</groupId>
-	<artifactId>hotel-catalogue-mgmt-service</artifactId>
+	<artifactId>hotels-catalogue-mgmt-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hotel-catalogue-mgmt-service</name>
+	<name>hotels-catalogue-mgmt-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

@@ -1,10 +1,10 @@
-package com.capgemini.hotelcataloguemgmtservice;
+package com.capgemini.hotelscataloguemgmtservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HotelCatalogueMgmtServiceApplicationTests {
+class HotelsCatalogueMgmtServiceApplicationTests {
 
 	@Test
 	void contextLoads() {

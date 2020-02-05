@@ -68,5 +68,11 @@ public class Hotel {
 	public void setRoomsAvailable(int roomsAvailable) {
 		this.roomsAvailable = roomsAvailable;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Hotel [hotelID=" + hotelID + ", hotelName=" + hotelName + ", location=" + location + ", pricePerRoom="
+				+ pricePerRoom + ", noOfRooms=" + noOfRooms + ", roomsAvailable=" + roomsAvailable + ", amenities="
+				+ amenities + "]";
+	}
 }

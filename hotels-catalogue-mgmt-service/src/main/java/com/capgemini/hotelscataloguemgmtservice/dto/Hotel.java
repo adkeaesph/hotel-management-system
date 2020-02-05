@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice.dto;
+package com.capgemini.hotelscataloguemgmtservice.dto;
 
 public class Hotel {
 	private int hotelID;
@@ -6,9 +6,11 @@ public class Hotel {
 	private String location; // later to be made as a separate class, for now it is a city
 	private double pricePerRoom; // No room differentiation, only one type of room
 	private int noOfRooms;
+	private int roomsAvailable;
 	private String amenities;
 
 	public Hotel() {
+		
 	}
 
 	public int getHotelID() {
@@ -58,4 +60,20 @@ public class Hotel {
 	public void setAmenities(String amenities) {
 		this.amenities = amenities;
 	}
+
+	public int getRoomsAvailable() {
+		return roomsAvailable;
+	}
+
+	public void setRoomsAvailable(int roomsAvailable) {
+		this.roomsAvailable = roomsAvailable;
+	}
+
+	@Override
+	public String toString() {
+		return "Hotel [hotelID=" + hotelID + ", hotelName=" + hotelName + ", location=" + location + ", pricePerRoom="
+				+ pricePerRoom + ", noOfRooms=" + noOfRooms + ", roomsAvailable=" + roomsAvailable + ", amenities="
+				+ amenities + "]";
+	}
+	
 }

@@ -1,4 +1,4 @@
-package com.capgemini.hotelcataloguemgmtservice;
+package com.capgemini.hotelscataloguemgmtservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,10 +9,10 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableEurekaClient
-public class HotelCatalogueMgmtServiceApplication {
+public class HotelsCatalogueMgmtServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HotelCatalogueMgmtServiceApplication.class, args);
+		SpringApplication.run(HotelsCatalogueMgmtServiceApplication.class, args);
 	}
 
 	@LoadBalanced
