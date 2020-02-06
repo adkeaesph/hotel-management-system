@@ -1,4 +1,4 @@
-package com.capgemini.hotelsdbmgmtservice.dto;
+package com.capgemini.hotelexplorationservice.dto;
 
 import java.sql.Date;
 
@@ -11,15 +11,11 @@ public class SearchInputs {
 	private double minPrice;
 	private double maxPrice;
 	
-	public SearchInputs(String location, Date checkInDate, Date checkOutDate) {
+	public SearchInputs(String location, Date checkInDate, Date checkOutDate, double minPrice, double maxPrice) {
 		super();
 		this.location = location;
 		this.checkInDate = checkInDate;
 		this.checkOutDate = checkOutDate;
-	}
-
-	public SearchInputs(String location, Date checkInDate, Date checkOutDate, double minPrice, double maxPrice) {
-		this(location,checkInDate,checkOutDate);
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
 		
@@ -59,4 +55,11 @@ public class SearchInputs {
 		this.maxPrice = maxPrice;
 	}
 
+	@Override
+	public String toString() {
+		return "SearchInputs [location=" + location + ", checkInDate=" + checkInDate + ", checkOutDate=" + checkOutDate
+				+ ", minPrice=" + minPrice + ", maxPrice=" + maxPrice + "]";
+	}
+
+	
 }
