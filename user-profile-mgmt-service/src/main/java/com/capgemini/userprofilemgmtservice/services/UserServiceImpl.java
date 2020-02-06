@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean login(User user) throws UserLoginException {
+	public UserEntity login(User user) throws UserLoginException {
 		boolean userLoginStatus = false;
 		Session session = null;
 		Transaction transaction = null;
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 			session.close();
 		}
 
-		return userLoginStatus;
+		return existingUser;
 
 	}
 
