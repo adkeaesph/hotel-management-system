@@ -1,10 +1,12 @@
 package com.capgemini.hotelsdbmgmtservice.services;
 
+import java.util.List;
+
 import com.capgemini.hotelsdbmgmtservice.customexceptions.StaySchedulingException;
 import com.capgemini.hotelsdbmgmtservice.dto.Reservation;
 
 public interface StaySchedulingService {
 
-	boolean scheduleRooms(Reservation reservation) throws StaySchedulingException;
+	List<Integer> scheduleRooms(List<Reservation> reservations) throws StaySchedulingException;
 
 }

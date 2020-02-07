@@ -1,4 +1,4 @@
-package com.capgemini.hotelsdbmgmtservice.dto;
+package com.capgemini.bookingmgmtservice.dto;
 
 import java.sql.Date;
 

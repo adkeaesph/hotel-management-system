@@ -1,5 +1,7 @@
 package com.capgemini.hotelsdbmgmtservice.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,23 +9,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.hotelsdbmgmtservice.customexceptions.StaySchedulingException;
-import com.capgemini.hotelsdbmgmtservice.dto.Reservation;
+import com.capgemini.hotelsdbmgmtservice.dto.ReservationList;
+import com.capgemini.hotelsdbmgmtservice.dto.StayIdList;
 import com.capgemini.hotelsdbmgmtservice.services.StaySchedulingService;
 
-@RequestMapping(path = "/room-allocation")
+@RequestMapping(path = "/schedule-stay")
 @RestController
 public class StaySchedulingController {
 
 	@Autowired
 	StaySchedulingService staySchedulingService;
 
-	@PostMapping(path = "/")
-	public String allocateRoom(@RequestBody Reservation reservation) {
+	@PostMapping(path = "/allocate-rooms")
+	public StayIdList allocateRoom(@RequestBody ReservationList reservationList) {
+		List<Integer> stayIds=null;
+		StayIdList stayIdList=new StayIdList();
 		try {
-			staySchedulingService.scheduleRooms(reservation);
+			stayIds=staySchedulingService.scheduleRooms(reservationList.getReservations());
+			stayIdList.setStayIds(stayIds);
 		} catch (StaySchedulingException exception) {
-			return "Room(s) could not be allocated!!!";
+			return null;
 		}
-		return "Room(s) allocated successfully.";
+		return stayIdList;
 	}
 }

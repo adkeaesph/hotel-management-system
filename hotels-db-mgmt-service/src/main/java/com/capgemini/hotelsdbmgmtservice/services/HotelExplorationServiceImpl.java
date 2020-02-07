@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.hotelsdbmgmtservice.dao.ReadHotelDAO;
-import com.capgemini.hotelsdbmgmtservice.dao.ScheduleStayDAO;
+import com.capgemini.hotelsdbmgmtservice.dao.ScheduledStayDAO;
 import com.capgemini.hotelsdbmgmtservice.dto.Hotel;
 import com.capgemini.hotelsdbmgmtservice.dto.SearchInputs;
 import com.capgemini.hotelsdbmgmtservice.entities.HotelEntity;
@@ -19,7 +19,7 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 	ReadHotelDAO readHotelDAO;
 	
 	@Autowired
-	ScheduleStayDAO scheduleStayDAO;
+	ScheduledStayDAO scheduledStayDAO;
 	
 	@Override
 	public List<Hotel> searchSimple(SearchInputs inputs) {
@@ -38,7 +38,7 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 		for(HotelEntity hotelEntity:hotelEntities) {
 			hotelID=hotelEntity.getId();
 			noOfRooms=hotelEntity.getNoOfRooms();
-			int occupiedRooms= scheduleStayDAO.findOccupiedRooms(hotelID, checkIn, checkOut).size();
+			int occupiedRooms= scheduledStayDAO.findOccupiedRooms(hotelID, checkIn, checkOut).size();
 			roomAvailable= noOfRooms-occupiedRooms;	
 			if(roomAvailable>0) {
 				hotel=new Hotel();
@@ -76,7 +76,7 @@ public class HotelExplorationServiceImpl implements HotelExplorationService {
 		for(HotelEntity hotelEntity:hotelEntities) {
 			hotelID=hotelEntity.getId();
 			noOfRooms=hotelEntity.getNoOfRooms();
-			int occupiedRooms= scheduleStayDAO.findOccupiedRooms(hotelID, checkIn, checkOut).size();
+			int occupiedRooms= scheduledStayDAO.findOccupiedRooms(hotelID, checkIn, checkOut).size();
 			roomAvailable= noOfRooms-occupiedRooms;	
 			if(roomAvailable>0) {
 				hotel=new Hotel();
