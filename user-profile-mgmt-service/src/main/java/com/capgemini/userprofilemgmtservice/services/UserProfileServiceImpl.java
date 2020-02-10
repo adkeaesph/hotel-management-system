@@ -1,6 +1,7 @@
 package com.capgemini.userprofilemgmtservice.services;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,34 +19,53 @@ public class UserProfileServiceImpl implements UserProfileService {
 
 	@Autowired
 	UserBookingDAO userBookingDAO;
-	
+
 	@Autowired
 	StayDAO stayDAO;
-	
+
 	@Override
 	public boolean addBookingLog(StayIdListWithEmailId stayIdListWithEmailId) throws AddBookingLogException {
 		try {
-			String emailID=stayIdListWithEmailId.getEmailId();
-			int rows=(int)userBookingDAO.count();
-			UserBookingEntity userBookingEntity=new UserBookingEntity();
-			userBookingEntity.setBookingID(rows+1);
+			String emailID = stayIdListWithEmailId.getEmailId();
+			int rows = (int) userBookingDAO.count();
+			UserBookingEntity userBookingEntity = new UserBookingEntity();
+			userBookingEntity.setBookingID(rows + 1);
 			userBookingEntity.setEmailID(emailID);
 			userBookingEntity.setBookingDate(new Date(System.currentTimeMillis()));
 			userBookingEntity.setStatus("Booked");
 			userBookingDAO.save(userBookingEntity);
-			
-			List<Integer> stayIds=stayIdListWithEmailId.getStayIdList().getStayIds();
+
+			List<Integer> stayIds = stayIdListWithEmailId.getStayIdList().getStayIds();
 			StayEntity stayEntity;
-			for(Integer stayID:stayIds) {
-				stayEntity=new StayEntity();
-				stayEntity.setBookingID(rows+1);
+			for (Integer stayID : stayIds) {
+				stayEntity = new StayEntity();
+				stayEntity.setBookingID(rows + 1);
 				stayEntity.setStayID(stayID);
 				stayDAO.save(stayEntity);
 			}
-		}catch(Exception exception) {
+		} catch (Exception exception) {
 			throw new AddBookingLogException("Booking log could not be added!!!");
 		}
 		return true;
 	}
 
+	@Override
+	public List<Integer> getStayIDs(String emailID) {
+		List<UserBookingEntity> userBookingEntities = userBookingDAO.findByEmailID(emailID);
+		int bookingID;
+		List<Integer> stayIDs = new ArrayList<>();
+		List<StayEntity> stayEntities;
+		for (UserBookingEntity userBookingEntity : userBookingEntities) {
+			stayEntities = new ArrayList<>();
+			bookingID = userBookingEntity.getBookingID();
+			stayEntities = stayDAO.findByBookingID(bookingID);
+			for (StayEntity stayEntity : stayEntities)
+				stayIDs.add(stayEntity.getStayID());
+		}
+
+		if (stayIDs.size() == 0)
+			return null;
+
+		return stayIDs;
+	}
 }

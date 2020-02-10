@@ -41,4 +41,21 @@ public class StaySchedulingServiceImpl implements StaySchedulingService{
 		}
 		return stayIds;
 	}
+	
+	@Override
+	public Reservation viewScheduledStays(Integer stayID) throws StaySchedulingException {
+		Reservation reservation = new Reservation();
+		ScheduledStayEntity scheduledStayEntity = scheduledStayDAO.findById(stayID).get();
+		reservation.setHotelID(scheduledStayEntity.getHotelID());
+		reservation.setGuestName(scheduledStayEntity.getGuestName());
+		reservation.setNoOfGuests(scheduledStayEntity.getNoOfGuests());
+		reservation.setPhoneNo(scheduledStayEntity.getPhoneNo());
+		reservation.setCheckinDate(scheduledStayEntity.getCheckInDate());
+		reservation.setCheckoutDate(scheduledStayEntity.getCheckOutDate());
+
+		if (reservation.getGuestName() == null)
+			throw new StaySchedulingException("No room scheduled as allocated!!!");
+
+		return reservation;
+	}
 }

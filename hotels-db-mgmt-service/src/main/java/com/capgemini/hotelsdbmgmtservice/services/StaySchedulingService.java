@@ -6,7 +6,6 @@ import com.capgemini.hotelsdbmgmtservice.customexceptions.StaySchedulingExceptio
 import com.capgemini.hotelsdbmgmtservice.dto.Reservation;
 
 public interface StaySchedulingService {
-
 	List<Integer> scheduleRooms(List<Reservation> reservations) throws StaySchedulingException;
-
+	Reservation viewScheduledStays(Integer stayID) throws StaySchedulingException;
 }

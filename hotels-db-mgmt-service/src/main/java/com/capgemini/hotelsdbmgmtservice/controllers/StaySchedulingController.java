@@ -3,12 +3,15 @@ package com.capgemini.hotelsdbmgmtservice.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.hotelsdbmgmtservice.customexceptions.StaySchedulingException;
+import com.capgemini.hotelsdbmgmtservice.dto.Reservation;
 import com.capgemini.hotelsdbmgmtservice.dto.ReservationList;
 import com.capgemini.hotelsdbmgmtservice.dto.StayIdList;
 import com.capgemini.hotelsdbmgmtservice.services.StaySchedulingService;
@@ -31,5 +34,14 @@ public class StaySchedulingController {
 			return null;
 		}
 		return stayIdList;
+	}
+	
+	@GetMapping(path = "/view-reservations/{stayID}")
+	public Reservation viewReservations(@PathVariable("stayID") Integer stayID) {
+		try {
+			return staySchedulingService.viewScheduledStays(stayID);
+		}catch(StaySchedulingException exception) {
+			return null;
+		}
 	}
 }

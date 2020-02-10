@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 			transaction = session.getTransaction();
 			transaction.begin();
 			existingUser = session.find(UserEntity.class, user.getMail());
-			if (existingUser == null ) {
+			if (existingUser == null) {
 				throw new UserLoginException(UserLoginException.USER_NOT_EXISTS);
 			}
 			if (existingUser.isStatus() == true) {
