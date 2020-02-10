@@ -15,8 +15,6 @@ public class ScheduledStayEntity {
 	private int stayId;
 	@Column(name = "HotelID")
 	private int hotelID;
-	@Column(name = "RoomId")
-	private int roomId;
 	@Column(name = "GuestName")
 	private String guestName;
 	@Column(name = "NoOfGuests")
@@ -46,14 +44,6 @@ public class ScheduledStayEntity {
 
 	public void setStayId(int stayId) {
 		this.stayId = stayId;
-	}
-
-	public int getRoomId() {
-		return roomId;
-	}
-
-	public void setRoomId(int roomId) {
-		this.roomId = roomId;
 	}
 
 	public String getGuestName() {
