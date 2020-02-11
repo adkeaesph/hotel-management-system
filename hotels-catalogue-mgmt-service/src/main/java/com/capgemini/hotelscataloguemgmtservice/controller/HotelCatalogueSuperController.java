@@ -1,5 +1,7 @@
 package com.capgemini.hotelscataloguemgmtservice.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,8 +44,8 @@ public class HotelCatalogueSuperController {
 	}
 	
 	@GetMapping(path = "/get-hotels/{location}")
-	public HotelList getHotelsByLocation(@PathVariable("location") String location) {
+	public List<Hotel> getHotelsByLocation(@PathVariable("location") String location) {
 		HotelList hotelList = restTemplate.getForObject("http://hotels-db-mgmt-service/catalogue/get-hotels/" + location,HotelList.class);
-		return hotelList;
+		return hotelList.getHotels();
 	}
 }
