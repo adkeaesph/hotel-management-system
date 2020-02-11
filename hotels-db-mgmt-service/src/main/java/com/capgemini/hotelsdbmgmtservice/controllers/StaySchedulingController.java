@@ -44,4 +44,13 @@ public class StaySchedulingController {
 			return null;
 		}
 	}
+	
+	@GetMapping(path = "/view-spec-reservations/{stayIDs}")
+	public ReservationList viewSpecReservations(@PathVariable("stayIDs") List<Integer> stayIDs) {
+		try {
+			return staySchedulingService.viewScheduledStays(stayIDs);
+		}catch(StaySchedulingException exception) {
+			return null;
+		}
+	}
 }
