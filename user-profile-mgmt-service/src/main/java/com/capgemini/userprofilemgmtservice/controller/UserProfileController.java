@@ -9,14 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.capgemini.userprofilemgmtservice.customexceptions.AddBookingLogException;
+import com.capgemini.userprofilemgmtservice.customexceptions.UserRegisterException;
 import com.capgemini.userprofilemgmtservice.dto.Reservation;
 import com.capgemini.userprofilemgmtservice.dto.ReservationList;
 import com.capgemini.userprofilemgmtservice.dto.StayIdListWithEmailId;
+import com.capgemini.userprofilemgmtservice.dto.User;
 import com.capgemini.userprofilemgmtservice.services.UserProfileService;
+import com.capgemini.userprofilemgmtservice.services.UserService;
 
 @RequestMapping(path = "/user-profile")
 @RestController
@@ -25,41 +29,9 @@ public class UserProfileController {
 	UserProfileService userProfileService;
 
 	@Autowired
-
 	UserService userService;
 	
-	@ResponseBody
-	@PostMapping(path = "/register")
-	public String register(@RequestBody User user) throws Exception {
-		try {
-			userService.register(user);
-		}catch(UserRegisterException exception) {
-			return "User Cannot be registered!!!" + exception.getMessage();
-		}
-		return "User added successfully.";
-	}
-	
-	@ResponseBody
-	@PostMapping(path = "/login")
-	public String login(@RequestBody User user) {
-		System.out.println(user);
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode dataResponse = mapper.createObjectNode();
-		UserEntity existingUser = null;
-		try {
-			existingUser = userService.login(user);
-			String userFetched = mapper.writeValueAsString(existingUser);
-			dataResponse = mapper.readTree(userFetched);
-		}catch(UserLoginException exception) {
-			
-			return "User Cannot be logged-in!!! " + exception.getMessage();
-		}catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
+	@Autowired
 	RestTemplate restTemplate;
 
 	@PostMapping("/add-booking-log")
