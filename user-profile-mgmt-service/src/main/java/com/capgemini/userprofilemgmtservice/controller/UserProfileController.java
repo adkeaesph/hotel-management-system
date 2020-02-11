@@ -25,6 +25,41 @@ public class UserProfileController {
 	UserProfileService userProfileService;
 
 	@Autowired
+
+	UserService userService;
+	
+	@ResponseBody
+	@PostMapping(path = "/register")
+	public String register(@RequestBody User user) throws Exception {
+		try {
+			userService.register(user);
+		}catch(UserRegisterException exception) {
+			return "User Cannot be registered!!!" + exception.getMessage();
+		}
+		return "User added successfully.";
+	}
+	
+	@ResponseBody
+	@PostMapping(path = "/login")
+	public String login(@RequestBody User user) {
+		System.out.println(user);
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode dataResponse = mapper.createObjectNode();
+		UserEntity existingUser = null;
+		try {
+			existingUser = userService.login(user);
+			String userFetched = mapper.writeValueAsString(existingUser);
+			dataResponse = mapper.readTree(userFetched);
+		}catch(UserLoginException exception) {
+			
+			return "User Cannot be logged-in!!! " + exception.getMessage();
+		}catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
 	RestTemplate restTemplate;
 
 	@PostMapping("/add-booking-log")
@@ -33,6 +68,7 @@ public class UserProfileController {
 			userProfileService.addBookingLog(stayIdListWithEmailId);
 		} catch (AddBookingLogException exception) {
 			return exception.getMessage();
+
 		}
 		return "Booking log added successfully.";
 	}
