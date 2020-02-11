@@ -1,4 +1,4 @@
-package com.capgemini.userprofilemgmtmicroservice;
+package com.capgemini.userprofilemgmtservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,30 +1,31 @@
 package com.capgemini.userprofilemgmtservice.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
-import com.capgemini.userprofilemgmtservice.customexceptions.UserLoginException;
-import com.capgemini.userprofilemgmtservice.customexceptions.UserLogoutException;
-import com.capgemini.userprofilemgmtservice.customexceptions.UserRegisterException;
-import com.capgemini.userprofilemgmtservice.dto.User;
-import com.capgemini.userprofilemgmtservice.entities.UserEntity;
-import com.capgemini.userprofilemgmtservice.services.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.capgemini.userprofilemgmtservice.customexceptions.AddBookingLogException;
+import com.capgemini.userprofilemgmtservice.dto.Reservation;
+import com.capgemini.userprofilemgmtservice.dto.ReservationList;
+import com.capgemini.userprofilemgmtservice.dto.StayIdListWithEmailId;
+import com.capgemini.userprofilemgmtservice.services.UserProfileService;
 
-@CrossOrigin("http://localhost:4200")
+@RequestMapping(path = "/user-profile")
 @RestController
-@RequestMapping(path = "/user")
-public class UserProfileController  {
+public class UserProfileController {
+	@Autowired
+	UserProfileService userProfileService;
 
 	@Autowired
+
 	UserService userService;
 	
 	@ResponseBody
@@ -58,21 +59,36 @@ public class UserProfileController  {
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		//return "User Successfully Logged-in";
-		return dataResponse.toString();
-	}
-	@ResponseBody
-	@PostMapping(path = "/logout")
-	public String logout(@RequestBody User user) {
-		try {
-			userService.logout (user);
-		}catch(UserLogoutException exception) {
-			return "User Cannot be logged-out!!!";
-		}
-		return "User logged-out successfully.";
-	}
-	
-	
 
+	RestTemplate restTemplate;
+
+	@PostMapping("/add-booking-log")
+	public String addBookingLog(@RequestBody StayIdListWithEmailId stayIdListWithEmailId) {
+		try {
+			userProfileService.addBookingLog(stayIdListWithEmailId);
+		} catch (AddBookingLogException exception) {
+			return exception.getMessage();
+
+		}
+		return "Booking log added successfully.";
+	}
+
+	@GetMapping("/view-my-bookings/{emailID}")
+	public ReservationList viewMyBookings(@PathVariable("emailID") String emailID) {
+		List<Integer> stayIDs = userProfileService.getStayIDs(emailID);
+		Reservation reservation = null;
+		List<Reservation> reservations = new ArrayList<>();
+		for (Integer stayID : stayIDs) {
+			System.out.println(stayID);
+			reservation = restTemplate.getForObject(
+					"http://hotels-db-mgmt-service/schedule-stay/view-reservations/" + stayID, Reservation.class);
+			if (reservation != null)
+				reservations.add(reservation);
+		}
+		if (reservations.size() == 0)
+			return null;
+		ReservationList reservationList = new ReservationList();
+		reservationList.setReservations(reservations);
+		return reservationList;
+	}
 }

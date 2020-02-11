@@ -9,26 +9,24 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Reservations")
-public class ScheduleStayEntity {
+public class ScheduledStayEntity {
 	@Id
 	@Column(name = "StayId")
 	private int stayId;
 	@Column(name = "HotelID")
 	private int hotelID;
-	@Column(name = "RoomId")
-	private int roomId;
 	@Column(name = "GuestName")
-	private String gName;
+	private String guestName;
 	@Column(name = "NoOfGuests")
 	private int noOfGuests;
 	@Column(name = "PhoneNo")
-	private int phoneNo;
+	private String phoneNo;
 	@Column(name = "CheckinDate")
 	private Date checkInDate;
 	@Column(name = "CheckoutDate")
 	private Date checkOutDate;
 
-	public ScheduleStayEntity() {
+	public ScheduledStayEntity() {
 
 	}
 
@@ -48,20 +46,12 @@ public class ScheduleStayEntity {
 		this.stayId = stayId;
 	}
 
-	public int getRoomId() {
-		return roomId;
+	public String getGuestName() {
+		return guestName;
 	}
 
-	public void setRoomId(int roomId) {
-		this.roomId = roomId;
-	}
-
-	public String getgName() {
-		return gName;
-	}
-
-	public void setgName(String gName) {
-		this.gName = gName;
+	public void setGuestName(String guestName) {
+		this.guestName = guestName;
 	}
 
 	public int getNoOfGuests() {
@@ -72,11 +62,11 @@ public class ScheduleStayEntity {
 		this.noOfGuests = noOfGuests;
 	}
 
-	public int getPhoneNo() {
+	public String getPhoneNo() {
 		return phoneNo;
 	}
 
-	public void setPhoneNo(int phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 

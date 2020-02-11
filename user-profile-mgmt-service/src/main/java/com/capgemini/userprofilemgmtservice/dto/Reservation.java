@@ -1,4 +1,4 @@
-package com.capgemini.hotelsdbmgmtservice.dto;
+package com.capgemini.userprofilemgmtservice.dto;
 
 import java.sql.Date;
 
