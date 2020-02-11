@@ -33,7 +33,7 @@ public class UserProfileController  {
 		try {
 			userService.register(user);
 		}catch(UserRegisterException exception) {
-			return "User Cannot be registered!!!";
+			return "User Cannot be registered!!!" + exception.getMessage();
 		}
 		return "User added successfully.";
 	}
@@ -50,8 +50,8 @@ public class UserProfileController  {
 			String userFetched = mapper.writeValueAsString(existingUser);
 			dataResponse = mapper.readTree(userFetched);
 		}catch(UserLoginException exception) {
-			System.out.println( exception.getMessage());
-			return "User Cannot be logged-in!!!" ;
+			
+			return "User Cannot be logged-in!!! " + exception.getMessage();
 		}catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
