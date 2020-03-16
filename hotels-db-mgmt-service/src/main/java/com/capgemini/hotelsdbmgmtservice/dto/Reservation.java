@@ -4,7 +4,6 @@ import java.sql.Date;
 
 public class Reservation {
 	private int hotelID;
-	private int roomID;
 	private String guestName;
 	private int noOfGuests;
 	private String phoneNo;
@@ -21,14 +20,6 @@ public class Reservation {
 
 	public void setHotelID(int hotelID) {
 		this.hotelID = hotelID;
-	}
-
-	public int getRoomID() {
-		return roomID;
-	}
-
-	public void setRoomID(int roomID) {
-		this.roomID = roomID;
 	}
 
 	public String getGuestName() {

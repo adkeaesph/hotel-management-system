@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import com.capgemini.userprofilemgmtservice.customexceptions.AddBookingLogException;
 import com.capgemini.userprofilemgmtservice.dto.Reservation;
 import com.capgemini.userprofilemgmtservice.dto.ReservationList;
+import com.capgemini.userprofilemgmtservice.dto.StayIdList;
 import com.capgemini.userprofilemgmtservice.dto.StayIdListWithEmailId;
 import com.capgemini.userprofilemgmtservice.services.UserProfileService;
 import com.capgemini.userprofilemgmtservice.services.UserService;
@@ -43,30 +44,15 @@ public class UserProfileController {
 		}
 		return "Booking log added successfully.";
 	}
-
-	@GetMapping("/view-my-bookings/{emailID}")
-	public List<Reservation> viewMyBookings(@PathVariable("emailID") String emailID) {
-		List<Integer> stayIDs = userProfileService.getStayIDs(emailID);
-		Reservation reservation = null;
-		List<Reservation> reservations = new ArrayList<>();
-		for (Integer stayID : stayIDs) {
-			System.out.println(stayID);
-			reservation = restTemplate.getForObject(
-					"http://hotels-db-mgmt-service/schedule-stay/view-reservations/" + stayID, Reservation.class);
-			if (reservation != null)
-				reservations.add(reservation);
-		}
-		if (reservations.size() == 0)
-			return null;
-		return reservations;
-	}
 	
 	@GetMapping("/view-bookings/{emailID}")
 	public List<Reservation> viewBookings(@PathVariable("emailID") String emailID) {
 		List<Integer> stayIDs = userProfileService.getStayIDs(emailID);
+		StayIdList stayIdList=new StayIdList();
+		stayIdList.setStayIds(stayIDs);
 		ReservationList reservationList=new ReservationList();
-		reservationList = restTemplate.getForObject(
-					"http://hotels-db-mgmt-service/schedule-stay/view-spec-reservations/" + stayIDs, ReservationList.class);
+		reservationList = restTemplate.postForObject(
+					"http://hotels-db-mgmt-service/schedule-stay/view-spec-reservations/",stayIdList, ReservationList.class);
 			
 		if (reservationList==null)
 			return null;

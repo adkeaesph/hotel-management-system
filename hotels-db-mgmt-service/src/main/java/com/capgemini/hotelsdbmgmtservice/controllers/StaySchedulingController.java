@@ -36,19 +36,10 @@ public class StaySchedulingController {
 		return stayIdList;
 	}
 	
-	@GetMapping(path = "/view-reservations/{stayID}")
-	public Reservation viewReservations(@PathVariable("stayID") Integer stayID) {
+	@PostMapping(path = "/view-spec-reservations/")
+	public ReservationList viewSpecReservations(@RequestBody StayIdList stayIdList) {
 		try {
-			return staySchedulingService.viewScheduledStays(stayID);
-		}catch(StaySchedulingException exception) {
-			return null;
-		}
-	}
-	
-	@GetMapping(path = "/view-spec-reservations/{stayIDs}")
-	public ReservationList viewSpecReservations(@PathVariable("stayIDs") List<Integer> stayIDs) {
-		try {
-			return staySchedulingService.viewScheduledStays(stayIDs);
+			return staySchedulingService.viewScheduledStays(stayIdList.getStayIds());
 		}catch(StaySchedulingException exception) {
 			return null;
 		}
